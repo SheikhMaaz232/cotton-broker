@@ -1,0 +1,145 @@
+@extends('layouts.app')
+@section('content')
+    <!-- Begin page -->
+    <div id="wrapper">
+        <div class="content-page">
+            <div class="content">
+                <div class="page-content-wrapper ">
+                    @if(session()->has('message'))
+                        <div class="alert" style="background-color: #a9e8a8">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="btn-group float-right">
+                                        <ol class="breadcrumb hide-phone p-0 m-0">
+                                            <li class="breadcrumb-item"><a href="#">Doaba Foundation</a></li>
+                                            <li class="breadcrumb-item active">Company Registration</li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">Company Registration</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title end breadcrumb -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card m-b-30">
+                                    <div class="card-body bpv-form project-management donor-reg">
+                                        <form action="{{ route('company.save') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="company_id" id="company_id"
+                                                   value="{{ isset($company->id) ? $company->id : ''  }}"
+                                                   autocomplete="off">
+
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <h6 class="light-dark">Name<span style="color: red">*</span></h6>
+                                                    <input type="text" class="form-control" name="name" id="name"
+                                                           value="{{ old('name'), @$company->name  }}"
+                                                           placeholder="Enter Donor Name">
+                                                    @error('name')
+                                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6 class="light-dark">Email<span style="color: red">*</span></h6>
+                                                    <input type="text" class="form-control" name="email" id="email"
+                                                           value="{{ old('email'), @$company->email }}"
+                                                           placeholder="Enter Donor Email">
+                                                    @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <h6 class="light-dark w-100">Phone<span style="color: red">*</span></h6>
+                                                    <input type="text" class="form-control" name="contact_number"
+                                                           id="contact_number"
+                                                           value="{{ old('contact_number'), @$company->contact_number }}"
+                                                           placeholder="Enter Donor Phone">
+                                                    @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <h6 class="light-dark w-100">Focal Person<span style="color: red">*</span></h6>
+                                                    <input type="text" class="form-control" name="focal_person" id="focal_person"
+                                                           value="{{ old('focal_person'), @$company->focal_person }}" placeholder="Enter Focal Person Name">
+                                                    @error('focal_person')
+                                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <h6 class="light-dark w-100">Postal Address<span style="color: red">*</span></h6>
+                                                    <input type="text" class="form-control" name="postal_address" id="postal_address"
+                                                           value="{{ old('postal_address'), @$company->postal_address }}"
+                                                           placeholder="Enter Postal Address">
+                                                    @error('postal_address')
+                                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <h6 class="light-dark w-100">Website<span style="color: red">*</span></h6>
+                                                    <input type="text" class="form-control" name="website" id="website"
+                                                           value="{{ old('website'), @$company->website }}"
+                                                           placeholder="Enter Website">
+                                                    @error('website')
+                                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group button-items mb-0 text-right">
+                                                <a href="{{ route('company.list') }}" class="btn btn-outline-danger waves-effect waves-light">Cancel</a>
+                                                @if(!empty($permission) && $permission->insert_access == 1 || Auth::user()->is_admin == 1)
+                                                <button type="submit"
+                                                        class="btn btn-primary waves-effect waves-light">@if(!isset($company))
+                                                        Save @else Update @endif</button>
+                                                    @endif
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div><!-- container -->
+
+
+                </div> <!-- Page content Wrapper -->
+
+            </div> <!-- content -->
+
+            <!-- End Right content here -->
+
+        </div>
+    </div>
+    <!-- END wrapper -->
+
+
+@endsection
